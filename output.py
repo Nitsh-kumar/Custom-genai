@@ -41,7 +41,7 @@ def show_output(st , question):
                 query_result, column_names  = read_sql_query(st,response_md)
                 response_df = pd.DataFrame(query_result, columns=column_names)
             except Exception as e:
-                error = str(e)
+                error = "Sorry!, I am not Trained for this query"
                 message = {'role': "assistant", 'content': error}
                 st.session_state.messages.append(message)
                 show_assistant_message(st ,role='assistant', avatar= assistant_icon,  response_md = error)
