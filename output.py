@@ -1,11 +1,8 @@
-#import standard libraries
+#standard libraries
 import pandas as pd
 from st_aggrid import AgGrid, GridOptionsBuilder, AgGridTheme
-
-#import local files
 from generate import generate_response
 from database import read_sql_query
-# from database import get_data_from_service
 import plotly.express as px
 
 user_icon = 'icon.png'
@@ -30,10 +27,9 @@ def show_output(st , question):
         with st.chat_message('user', avatar=user_icon):
             st.markdown(question)  
         response_df = pd.DataFrame()
-        # service =  generate_response(question)
         response_md = generate_response(question)  
         #if we did'nt get get select query in response text then we will fetch data
-        if question.lower() in ["hello", "hi", "who are you"]:
+        if question.lower() != "SELECT":
             message = {'role': "assistant", 'content': response_md }
             st.session_state.messages.append(message)
             with st.chat_message("assistant", avatar= assistant_icon):
@@ -44,8 +40,6 @@ def show_output(st , question):
             try:
                 query_result, column_names  = read_sql_query(st,response_md)
                 response_df = pd.DataFrame(query_result, columns=column_names)
-                # service_data , error = get_data_from_service(service) 
-                # response_df = pd.DataFrame(service_data)
             except Exception as e:
                 error = str(e)
                 message = {'role': "assistant", 'content': error}
@@ -53,7 +47,6 @@ def show_output(st , question):
                 show_assistant_message(st ,role='assistant', avatar= assistant_icon,  response_md = error)
                 exit()
         # Add AI message to chat history with DataFrame if available
-        # message = {'role': "assistant", 'content': service_data}
         message = {'role': "assistant", 'content': response_md}
         if not response_df.empty:
             message['data'] = response_df.to_dict()  # Convert DataFrame to dict for storage
@@ -115,7 +108,6 @@ def show_assistant_message( st  , role , avatar  , response_md , response_df = p
                                 st.session_state.graph_type = "Histogram"
                                 hist_data = paginated_data[paginated_data.columns[1]]
                                 hist_label = paginated_data.columns[1]
-        
                                 fig = px.histogram(paginated_data, x=hist_data, title=f'Histogram of {hist_label}')
                                 st.plotly_chart(fig, use_container_width=True)
                             
