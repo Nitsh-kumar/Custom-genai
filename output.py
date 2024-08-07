@@ -86,7 +86,7 @@ def show_assistant_message( st  , role , avatar  , response_md , response_df = p
                         if len(paginated_data.columns) == 2 and paginated_data.dtypes[1] in ['int64', 'float64'] or st.session_state.load_data:
                             st.session_state.load_data = True 
                             st.session_state.counter +=1
-                            graphs = st.selectbox("Select Chart:", ["Bar Graph", "Line Plot", "Histogram"] ,key = st.session_state.counter)
+                            graphs = st.selectbox("Select Chart:", ["Bar Graph", "Line Plot", "Histogram"] )
             
                             x_data = paginated_data[paginated_data.columns[0]]
                             y_data = paginated_data[paginated_data.columns[1]]
