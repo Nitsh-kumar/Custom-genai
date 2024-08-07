@@ -2,3 +2,4 @@ Streamlit
 Streamlit-navigation-bar
 google.generativeai
 streamlit-aggrid
+plotly-express
