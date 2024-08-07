@@ -16,6 +16,8 @@ if "load_data" not in st.session_state:
     st.session_state.load_data = False
 if "graph_type" not in st.session_state:
     st.session_state.graph_type = "Bar Graph"
+if "counter" not in st.session_state:
+    st.session_state.counter = 1
 
 # load front_end
 set_front_page(st)
