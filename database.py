@@ -49,7 +49,7 @@ def read_sql_query(sql):
        cur.execute(sql)
        rows = cur.fetchall()
     except Exception as e:
-           print(e)
+           st.write(e)
     column_names = []
     for description in cur.description:
         if desc.get(description[0]):
