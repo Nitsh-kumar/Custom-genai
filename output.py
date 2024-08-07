@@ -42,7 +42,7 @@ def show_output(st , question):
         else:
         # Generate AI response
             try:
-                query_result, column_names  = read_sql_query(response_md)
+                query_result, column_names  = read_sql_query(st,response_md)
                 response_df = pd.DataFrame(query_result, columns=column_names)
                 # service_data , error = get_data_from_service(service) 
                 # response_df = pd.DataFrame(service_data)
