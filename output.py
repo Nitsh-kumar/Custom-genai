@@ -26,16 +26,6 @@ def show_history(st):
 
 
 def show_output(st , question):
-        #load all the stored chat history
-        if len(st.session_state.messages) > 0:
-            for message in st.session_state.messages:
-                role = message.get('role')
-                avatar = message.get('avatar', assistant_icon if role == 'assistant' else user_icon)
-                if message.get('data') == None:
-                    response_df = pd.DataFrame()
-                else:
-                    response_df = pd.DataFrame(message['data'])
-                show_assistant_message(st , role  , avatar  , response_md = message['content']  , response_df = response_df  )
         st.session_state.messages.append({'role': 'user', 'content': question})
         with st.chat_message('user', avatar=user_icon):
             st.markdown(question)  
