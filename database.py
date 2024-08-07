@@ -43,10 +43,13 @@ def read_sql_query(sql):
         "MTART" :"Material Type",
         "ERSDA" :"Material Creation Date",
     }
-    conn = sqlite3.connect(db)
-    cur = conn.cursor()
-    cur.execute(sql)
-    rows = cur.fetchall()
+    try:
+       conn = sqlite3.connect(db)
+       cur = conn.cursor()
+       cur.execute(sql)
+       rows = cur.fetchall()
+    except Exception as e:
+           print(e)
     column_names = []
     for description in cur.description:
         if desc.get(description[0]):
