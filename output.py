@@ -29,7 +29,7 @@ def show_output(st , question):
         response_df = pd.DataFrame()
         response_md = generate_response(question)  
         #if we did'nt get get select query in response text then we will fetch data
-        if question.lower().__contains__("SELECT"):
+        if not question.lower().__contains__("SELECT"):
             message = {'role': "assistant", 'content': response_md }
             st.session_state.messages.append(message)
             with st.chat_message("assistant", avatar= assistant_icon):
