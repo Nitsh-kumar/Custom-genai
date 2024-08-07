@@ -29,8 +29,8 @@ from sql import set_db
 
 def read_sql_query(sql):
     db = 'Mydb.db'
-    if not os.path.isfile(db):
-        set_db()
+    # if not os.path.isfile(db):
+    #     set_db()
 
     desc = {
         "EBELN" :"Document Number",
