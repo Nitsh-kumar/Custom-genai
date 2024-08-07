@@ -28,7 +28,7 @@ from sql import set_db
 
 
 def read_sql_query(st,sql):
-    db = 'Mydb.db'
+    db = 'MYdb.db'
     
     if not os.path.isfile(db):
         set_db()
