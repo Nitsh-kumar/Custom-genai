@@ -27,7 +27,7 @@ show_history(st)
 question = st.chat_input("")
   if st.button("Studio microphone", help='Click this button to perform an action'):
       question = recognize_speech(st)
-  elif st.chat_input(""):
+    elif st.chat_input(""):
       question = st.chat_input("")
 
 
