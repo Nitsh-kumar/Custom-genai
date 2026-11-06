@@ -27,14 +27,20 @@ def show_output(st , question):
         with st.chat_message('user', avatar=user_icon):
             st.markdown(question)  
         response_df = pd.DataFrame()
-        response_md = generate_response(question)  
+        try:
+            response_md = generate_response(question)
+        except Exception:
+            error = "Could not generate a response. Check provider configuration and try again."
+            st.session_state.messages.append({'role': 'assistant', 'content': error})
+            show_assistant_message(st, role='assistant', avatar=assistant_icon, response_md=error)
+            return  
         #if we did'nt get get select query in response text then we will fetch data
         if  question.lower() in ["hello", "hi", "who are you"]:
             message = {'role': "assistant", 'content': response_md }
             st.session_state.messages.append(message)
             with st.chat_message("assistant", avatar= assistant_icon):
                 st.markdown(message['content'])
-                exit()
+                return
         else:
         # Generate AI response
             try:
@@ -45,7 +51,7 @@ def show_output(st , question):
                 message = {'role': "assistant", 'content': error}
                 st.session_state.messages.append(message)
                 show_assistant_message(st ,role='assistant', avatar= assistant_icon,  response_md = error)
-                exit()
+                return
         # Add AI message to chat history with DataFrame if available
         message = {'role': "assistant", 'content': response_md}
         if not response_df.empty:

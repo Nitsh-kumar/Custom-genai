@@ -1,8 +1,12 @@
+import os
 import google.generativeai as genai
  
 def generate_response(question):
     prompts , greet  = get_prompts()
-    genai.configure(api_key="AIzaSyA4wedlllm0xX9r7ERgbGQjQhM1Q3cIk6Y")
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if not api_key:
+        raise ValueError("Set GEMINI_API_KEY before using the assistant.")
+    genai.configure(api_key=api_key)
 
     if question.lower() in ["hello", "hi", "who are you"]:
         text = get_gemini_response(greet, question)
